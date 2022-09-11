@@ -10,3 +10,5 @@ async def on_message(message : discord.Message):
 
     if(message.content == "/dice"):
         await message.send("ダイス")
+
+client.run(discord_token.TOKEN)
