@@ -1,7 +1,9 @@
 import discord
 import discord_token
 
-client = discord.Client()
+Intents = discord.Intents.default()
+Intents.members = True
+client = discord.Client(intents=Intents)
 
 @client.event
 async def on_message(message : discord.Message):
