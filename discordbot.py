@@ -6,7 +6,7 @@ Intents.members = True
 client = discord.Client(intents=Intents)
 
 @client.event
-async def on_message(message : discord.Message):
+async def on_message(message):
     if(message.author.bot):
         return
 
