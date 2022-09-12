@@ -1,9 +1,5 @@
 import discord
-from discord.ext import commands
-from dislash import slash_commands, Option, OptionType
-
 import discord_token
-
 import random
 
 Intents = discord.Intents.default()
@@ -12,35 +8,42 @@ Intents.messages = True
 Intents.guild_messages = True
 client = discord.Client(intents=Intents)
 
-@slash_commands(
-    name="DICE☆KE",
-    description = "ダイスを振るよ！",
-    options = [Option("text", "ダイスを指定してね", OptionType.STRING)]
-)
-async def dice(inter, text:str=None):
-    if text is not None:
+@client.event
+async def on_message(message : discord.message.Message):
+    if(message.author.bot):
+        return
+    if(message.content[0]  != "/"):
+        return
+
+    if("/dice" in message.content):
         try:
+            text = message.content[6:]
             texts = text.split("d")
             roll_time = int(texts[0])
             face_num = int(texts[1])
-            result:str = None
+            dice_nums = []
+            total_num:int = 0
 
             if roll_time == 1:
-                result = str(random.randint(0,  face_num))
+                num = random.randint(0,  face_num)
+                dice_nums.append(num)
+                total_num = num
             elif roll_time > 1:
-                # for i in range(roll_time):
-            # else:
-                # raise Exception
-        # except:
-            # await inter.reply("ダイスの値が不正です")
-
-
-# @client.event
-# async def on_message(message : discord.message.Message):
-#     if(message.author.bot):
-#         return
-
-#     if(message.content == "/dice"):
-#         await message.channel.send("ダイス")
+                for i in range(roll_time):
+                    num = random.randint(0,  face_num)
+                    dice_nums.append(num)
+                    total_num += num
+            else:
+                raise Exception
+            await message.reply(f"{total_num} {dice_nums}")
+        except Exception as e:
+            await message.reply("ダイスの値が不正です")
+            print("=== エラー内容 ===")
+            print("type:" + str(type(e)))
+            print('args:' + str(e.args))
+            print('message:' + e.message)
+            print('e自身:' + str(e))
+    else:
+            await message.reply("コマンドが不正です")
 
 client.run(discord_token.TOKEN)
