@@ -35,6 +35,5 @@ async def on_message(message : discord.message.Message):
             raise Exception
         await message.reply(f"{total_num} {dice_nums}")
     except Exception as e:
-        await message.reply("ダイスの値が不正です")
-        await message.reply(f"===エラー内容===\n type:{type(e)}\n args:{e.args}\n message:{e.message}\n error:{e}")
+        await message.reply("ダイスの値が不正です\n===エラー内容===\n type:{type(e)}\n args:{e.args}\n message:{e.message}\n error:{e}")
 client.run(discord_token.TOKEN)
