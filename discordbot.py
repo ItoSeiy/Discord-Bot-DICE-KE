@@ -4,6 +4,7 @@ import random
 
 Intents = discord.Intents.default()
 Intents.messages = True
+Intents.message_content = True
 client = discord.Client(intents=Intents)
 
 @client.event
