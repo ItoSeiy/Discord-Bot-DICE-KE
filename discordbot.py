@@ -3,9 +3,7 @@ import discord_token
 import random
 
 Intents = discord.Intents.default()
-Intents.message_content = True
 Intents.messages = True
-Intents.guild_messages = True
 client = discord.Client(intents=Intents)
 
 @client.event
