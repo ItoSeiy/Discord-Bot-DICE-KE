@@ -22,12 +22,12 @@ async def on_message(message : discord.message.Message):
         total_num:int = 0
 
         if roll_time == 1:
-            num = random.randint(0,  face_num)
+            num = random.randint(1,  face_num)
             dice_nums.append(num)
             total_num = num
         elif roll_time > 1:
-            for i in range(roll_time):
-                num = random.randint(0,  face_num)
+            for _ in range(roll_time):
+                num = random.randint(1,  face_num)
                 dice_nums.append(num)
                 total_num += num
         else:
